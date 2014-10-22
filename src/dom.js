@@ -1,3 +1,13 @@
+// Authors 
+// ---
+// Maxwell Folley  
+// David Glivar  
+//
+// Copyright
+// ---------
+// 2014 W+K 
+
+
 /**
  * A module that provides strap functionality for modifying the dom
  * and also provides oak namespaced dom helpers. 
