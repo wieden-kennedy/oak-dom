@@ -1,0 +1,33 @@
+{
+  "name": "oak-dom",
+  "version": "0.0.1",
+  "homepage": "https://github.com/wieden-kennedy/oak-dom",
+  "authors": [
+    "Maxwell Folley"
+  ],
+  "description": "Dom manipulation package for the Oak javascript framework.",
+  "main": "dist/oak-dom.min.js",
+  "keywords": [
+    "oak",
+    "framework",
+    "animation",
+    "collection"
+  ],
+  "license": "BSD",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "gulpfile.js",
+    "package.json",
+    "README.md",
+    "node_modules",
+    "bower_components",
+    "bower.json",
+    "src",
+    "spec"
+  ],
+  "dependencies": {
+    "oak": "~0.0.2",
+    "oak-support": "*"
+  }
+}
