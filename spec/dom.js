@@ -7,7 +7,7 @@ describe("dom", function () {
     expect(strap.css).toBeDefined();
   });
 
-  describe('exposed methods', function () {
+  describe('oak extensions', function () {
 
     describe('method: build', function () {
       it('builds a dom node', function () {
@@ -17,13 +17,12 @@ describe("dom", function () {
     });
 
     describe('method: contains', function () {
-      // FAILING
       it('returns true if a child exists in the parent', function () {
-        //var div = document.createElement('div');
-        //var span = document.createElement('span');
-        //div.appendChild(span);
-        //var result = oak.contains(div, span);
-        //expect(result).toBe(true);
+        var myDiv = document.createElement('div');
+        var span = document.createElement('span');
+        myDiv.appendChild(span);
+        var result = oak.contains(myDiv, span);
+        expect(result).toBe(true);
       });
     });
 
@@ -61,24 +60,6 @@ describe("dom", function () {
         div.className = 'test';
         var result = oak.hasClass(div, 'notTest');
         expect(result).toBe(false);
-      });
-    });
-
-    describe('method: next', function () {
-      it('finds sibling', function () {
-        var div = oak.build('<div><button id="button-one" class="btn"></button><button id="button-two" class="btn"></button></div>');
-        document.body.appendChild(div);
-        var strap = oak.strap("#button-one");
-        expect(strap.next()[0].id).toBe("button-two");
-      });
-    });
-
-    describe('method: prev', function () {
-      it('finds sibling', function () {
-        var div = oak.build('<div><button id="button-one" class="btn"></button><button id="button-two" class="btn"></button></div>');
-        document.body.appendChild(div);
-        var strap = oak.strap("#button-two");
-        expect(strap.prev()[0].id).toBe("button-one");
       });
     });
 
@@ -147,6 +128,52 @@ describe("dom", function () {
         expect(div[0].children[0]).toBe(foo);
         expect(div[0].children[1]).toBe(bar);
       });
+    });
+
+    describe('method: attribute', function () {
+
+      it("sets attribute", function () {
+        div.attribute('data-foo', 'bar');
+        expect(div[0].getAttribute('data-foo')).toBe("bar");
+      });
+
+      it("gets attribute", function () {
+        div.attribute('data-foo', 'bar');
+        expect(div.attribute('data-foo')).toBe("bar");
+      });
+
+    });
+
+    describe('method: contains', function () {
+      it('returns true if a child exists in the parent', function () {
+        var span = document.createElement('span');
+        div.append(span);
+        var result = div.contains(span);
+        expect(result).toBe(true);
+      });
+
+      it('returns true if a strap exists in the parent', function () {
+        var
+          span = document.createElement('span'),
+          span2 = document.createElement('span'),
+          spans = oak.strap(span, span2);
+
+        div.append(spans);
+        var result = div.contains(spans);
+        expect(result).toBe(true);
+      });
+
+      it('returns false if a strap item is not in the parent', function () {
+        var
+          span = document.createElement('span'),
+          span2 = document.createElement('span'),
+          spans = oak.strap(span, span2);
+
+        div.append(span);
+        var result = div.contains(spans);
+        expect(result).toBe(false);
+      });
+
     });
 
     describe('method: css', function () {
@@ -242,6 +269,15 @@ describe("dom", function () {
       });
     });
 
+    describe('method: next', function () {
+      it('finds sibling', function () {
+        var div = oak.build('<div><button id="button-one" class="btn"></button><button id="button-two" class="btn"></button></div>');
+        document.body.appendChild(div);
+        var strap = oak.strap("#button-one");
+        expect(strap.next()[0].id).toBe("button-two");
+      });
+    });
+
     describe('method: prepend', function () {
       it('adds a child to the beginning of it\'s children array', function () {
         for (var i = 0; i < 3; i += 1) {
@@ -266,6 +302,15 @@ describe("dom", function () {
         div.prepend(foo);
         div.prepend(bar);
         expect(div[0].firstChild).toBe(bar);
+      });
+    });
+
+    describe('method: prev', function () {
+      it('finds sibling', function () {
+        var div = oak.build('<div><button id="button-one" class="btn"></button><button id="button-two" class="btn"></button></div>');
+        document.body.appendChild(div);
+        var strap = oak.strap("#button-two");
+        expect(strap.prev()[0].id).toBe("button-one");
       });
     });
 
