@@ -42,7 +42,6 @@
             }
           });
         },
-        // TODO test
         attribute: function (key, val) {
           if (typeof val !== "undefined") {
             return this.each(function (targ) {
@@ -70,6 +69,9 @@
           } else {
             return this[0].className;
           }
+        },
+        contains: function (child) {
+          return self.contains(this[0], child);
         },
         css: function (prop, val) {
           if (typeof prop === "object") {
@@ -272,10 +274,33 @@
           return node;
         },
         contains: function (targ, child) {
-          if (child) {
-            var b;
+          if (oak.isStrap(child)) {
+            var
+              children = child, 
+              isContained = true;
+
+            children.each(function (child) {
+              // If flag already set to false, stop execution
+              if (isContained === false) { return; }
+
+              var
+                b = child,
+                inParent = false;
+
+              while (b = b.parentNode) {
+                if (b === targ) {
+                  inParent = true;
+                  break;
+                }
+              }
+
+              isContained = inParent;
+            });
+            return isContained; 
+          } else if (child) {
+            var b = child;
             while (b = b.parentNode) {
-              if (b === targ[0]) {
+              if (b === targ) {
                   return true;
               }
             }

@@ -1,7 +1,7 @@
 Oak Dom
 =======
 
-Dom manipulation package for the Oak javascript suite.
+Dom manipulation package for the Oak javascript development suite.
 
 Docs
 ----
